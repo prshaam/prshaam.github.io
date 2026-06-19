@@ -5,7 +5,7 @@
   "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
   "year": 2026,
   "logo": ">_ ssg.dev",
-  "profileImage": "/assets/img/profile.svg",
+  "profileImage": "https://lh3.googleusercontent.com/a/ACg8ocJyTsaS-psnNKTVXjrRGO6GK-sTvGNZR8-TNWjaDf1i-bE6xIE=s288-c-no",
   "resumeUrl": "#",
   "social": [
     { "name": "GitHub", "url": "https://github.com", "icon": "github" },
