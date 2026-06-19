@@ -115,7 +115,7 @@ img {
 
 .social-link:hover {
   color: var(--accent);
-  background: rgba(45, 212, 191, 0.08);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .social-link svg {
@@ -354,8 +354,8 @@ img {
   border-radius: 4px;
   margin-bottom: 0.5rem;
   color: var(--accent);
-  background: rgba(45, 212, 191, 0.1);
-  border: 1px solid rgba(45, 212, 191, 0.22);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .project-card__link {
@@ -657,7 +657,7 @@ body.page-enter-back .page-transition-root {
 .page-back:hover {
   color: var(--accent);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-  background: rgba(45, 212, 191, 0.06);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .page-back svg {

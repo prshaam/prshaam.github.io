@@ -120,9 +120,17 @@
         this.y = hitTop ? this.radius : height - this.radius;
       }
 
-      if (bouncedX && bouncedY && this.spawnCooldown === 0) {
-        this.spawnCooldown = 200;
-        spawnParticle(this.x, this.y, -this.vx * 0.85, -this.vy * 0.85, this.hue + (Math.random() - 0.5) * 24);
+      if ((bouncedX || bouncedY) && this.spawnCooldown === 0) {
+        this.spawnCooldown = 220;
+        const angle = Math.atan2(this.vy, this.vx) + (Math.random() - 0.5) * 0.4;
+        const speed = Math.hypot(this.vx, this.vy) * 0.85;
+        spawnParticle(
+          this.x,
+          this.y,
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed,
+          (this.hue + (Math.random() - 0.5) * 24 + 360) % 360
+        );
       }
     }
 
