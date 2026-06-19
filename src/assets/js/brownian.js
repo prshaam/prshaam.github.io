@@ -12,35 +12,28 @@
   let height = 0;
   let maxCount = 32;
   let dpr = window.devicePixelRatio || 1;
-  const palette = [180, 60, 300];
-  const hueCycleMs = 34000;
+  
+  // Fixed monochromatic teal - no color changes
+  const TEAL_HUE = 174;
+  const TEAL_SAT = 92;
 
   function getResponsiveMaxCount() {
-    if (width <= 640) return 8;
-    if (width <= 1024) return 18;
-    if (width <= 1440) return 28;
-    return 40;
+    if (width <= 640) return 12;
+    if (width <= 1024) return 24;
+    if (width <= 1440) return 36;
+    return 48;
   }
 
-  function getCurrentHue(time) {
-    const raw = ((time % hueCycleMs) / hueCycleMs) * palette.length;
-    const index = Math.floor(raw);
-    const nextIndex = (index + 1) % palette.length;
-    const progress = raw - index;
-    const from = palette[index];
-    const to = palette[nextIndex];
-    const delta = to - from;
-    const corrected = from + delta * progress;
-    return (corrected + 360) % 360;
-  }
-
-  function setAccentColors(time) {
-    const hue = getCurrentHue(time);
-    const accent = `hsl(${hue}, 92%, 58%)`;
-    const accentDark = `hsl(${hue}, 82%, 35%)`;
-    const accentGlow = `hsla(${hue}, 95%, 62%, 0.24)`;
+  function setAccentColors() {
+    // Set fixed teal colors - never change
+    const accent = `hsl(${TEAL_HUE}, ${TEAL_SAT}%, 58%)`;
+    const accentDark = `hsl(${TEAL_HUE}, 85%, 35%)`;
+    const accentLight = `hsl(${TEAL_HUE}, 95%, 65%)`;
+    const accentGlow = `hsla(${TEAL_HUE}, 98%, 60%, 0.3)`;
+    
     document.documentElement.style.setProperty("--accent", accent);
     document.documentElement.style.setProperty("--accent-dark", accentDark);
+    document.documentElement.style.setProperty("--accent-light", accentLight);
     document.documentElement.style.setProperty("--accent-glow", accentGlow);
   }
 
@@ -61,20 +54,23 @@
   }
 
   function clampVelocity(v) {
-    const max = 3.4;
+    const max = 4;
     return Math.max(-max, Math.min(max, v));
   }
 
-  function createParticle(x, y, vx, vy, hue) {
+  function createParticle(x, y, vx, vy, lightness, genSize = 1) {
     const particle = new Particle();
     particle.x = x;
     particle.y = y;
     particle.vx = clampVelocity(vx);
     particle.vy = clampVelocity(vy);
-    particle.hue = hue;
-    particle.radius = 2.5 + Math.random() * 3.5;
-    particle.opacity = 0.08 + Math.random() * 0.12;
+    particle.lightness = lightness;
+    particle.generation = genSize;
+    particle.radius = Math.max(1.5, 3 - genSize * 0.5 + Math.random() * 2);
+    particle.opacity = Math.max(0.05, 0.15 - genSize * 0.03 + Math.random() * 0.08);
     particle.spawnCooldown = 0;
+    particle.lifespan = 6000 + Math.random() * 4000;
+    particle.birthTime = performance.now();
     return particle;
   }
 
@@ -86,20 +82,36 @@
     reset(initial) {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      const speed = 1.6 + Math.random() * 1.8;
+      const speed = 1.2 + Math.random() * 2.5;
       const angle = Math.random() * Math.PI * 2;
       this.vx = Math.cos(angle) * speed;
       this.vy = Math.sin(angle) * speed;
       this.radius = 2.5 + Math.random() * 3.5;
-      this.opacity = 0.08 + Math.random() * 0.12;
-      this.hue = getCurrentHue(performance.now() + Math.random() * 8000);
+      this.opacity = 0.08 + Math.random() * 0.14;
+      this.lightness = 45 + Math.random() * 25;
       this.spawnCooldown = 0;
+      this.generation = 1;
+      this.lifespan = 8000;
+      this.birthTime = performance.now();
     }
 
     update(delta) {
       this.x += this.vx;
       this.y += this.vy;
-      this.hue = (this.hue + 0.02) % 360;
+      
+      // Apply gentle chaos - brownian motion
+      this.vx += (Math.random() - 0.5) * 0.08;
+      this.vy += (Math.random() - 0.5) * 0.08;
+      
+      // Clamp velocity after adding chaos
+      const maxVel = 4;
+      const velocity = Math.hypot(this.vx, this.vy);
+      if (velocity > maxVel) {
+        const scale = maxVel / velocity;
+        this.vx *= scale;
+        this.vy *= scale;
+      }
+      
       this.spawnCooldown = Math.max(0, this.spawnCooldown - delta);
 
       const hitLeft = this.x <= this.radius;
@@ -120,17 +132,35 @@
         this.y = hitTop ? this.radius : height - this.radius;
       }
 
-      if ((bouncedX || bouncedY) && this.spawnCooldown === 0) {
-        this.spawnCooldown = 220;
-        const angle = Math.atan2(this.vy, this.vx) + (Math.random() - 0.5) * 0.4;
-        const speed = Math.hypot(this.vx, this.vy) * 0.85;
-        spawnParticle(
-          this.x,
-          this.y,
-          Math.cos(angle) * speed,
-          Math.sin(angle) * speed,
-          (this.hue + (Math.random() - 0.5) * 24 + 360) % 360
-        );
+      // DVD screensaver-style replication on bounce
+      if ((bouncedX || bouncedY) && this.spawnCooldown === 0 && this.generation < 3) {
+        this.spawnCooldown = 150 + Math.random() * 100;
+        
+        // Create multiple child particles with chaotic directions
+        const childCount = 1 + Math.floor(Math.random() * 2);
+        for (let i = 0; i < childCount; i++) {
+          const angle = Math.atan2(this.vy, this.vx) + (Math.random() - 0.5) * 0.6;
+          const speed = Math.hypot(this.vx, this.vy) * (0.7 + Math.random() * 0.3);
+          
+          // Vary lightness for child particles (different intensities of teal)
+          const childLightness = 40 + Math.random() * 30;
+          
+          spawnParticle(
+            this.x + (Math.random() - 0.5) * 20,
+            this.y + (Math.random() - 0.5) * 20,
+            Math.cos(angle) * speed,
+            Math.sin(angle) * speed,
+            childLightness,
+            this.generation + 1
+          );
+        }
+      }
+      
+      // Fade out at end of lifespan
+      const age = performance.now() - this.birthTime;
+      if (age > this.lifespan * 0.8) {
+        const fadeProgress = (age - this.lifespan * 0.8) / (this.lifespan * 0.2);
+        this.opacity *= Math.max(0, 1 - fadeProgress);
       }
     }
 
@@ -141,22 +171,34 @@
         0,
         this.x,
         this.y,
-        this.radius * 4
+        this.radius * 5
       );
-      gradient.addColorStop(0, `hsla(${this.hue}, 92%, 68%, ${this.opacity})`);
-      gradient.addColorStop(0.45, `hsla(${this.hue}, 92%, 68%, ${this.opacity * 0.6})`);
-      gradient.addColorStop(1, `hsla(${this.hue}, 92%, 68%, 0)`);
+      
+      const core = `hsla(${TEAL_HUE}, ${TEAL_SAT}%, ${this.lightness}%, ${this.opacity})`;
+      const mid = `hsla(${TEAL_HUE}, ${TEAL_SAT - 5}%, ${this.lightness - 5}%, ${this.opacity * 0.6})`;
+      const outer = `hsla(${TEAL_HUE}, ${TEAL_SAT}%, ${this.lightness}%, 0)`;
+      
+      gradient.addColorStop(0, core);
+      gradient.addColorStop(0.4, mid);
+      gradient.addColorStop(1, outer);
 
       ctx.beginPath();
       ctx.fillStyle = gradient;
-      ctx.arc(this.x, this.y, this.radius * 4, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, this.radius * 5, 0, Math.PI * 2);
       ctx.fill();
+      
+      // Add subtle glow effect
+      ctx.beginPath();
+      ctx.strokeStyle = `hsla(${TEAL_HUE}, 98%, ${this.lightness}%, ${this.opacity * 0.3})`;
+      ctx.lineWidth = 0.5;
+      ctx.arc(this.x, this.y, this.radius * 6, 0, Math.PI * 2);
+      ctx.stroke();
     }
   }
 
-  function spawnParticle(x, y, vx, vy, hue) {
+  function spawnParticle(x, y, vx, vy, lightness, generation = 1) {
     if (particles.length >= maxCount) return;
-    particles.push(createParticle(x, y, vx, vy, hue));
+    particles.push(createParticle(x, y, vx, vy, lightness, generation));
   }
 
   function init() {
@@ -177,12 +219,27 @@
     smoothMouse.x += (mouse.x - smoothMouse.x) * 0.02;
     smoothMouse.y += (mouse.y - smoothMouse.y) * 0.02;
 
-    setAccentColors(now);
+    // Set colors once - they never change
+    setAccentColors();
     ctx.clearRect(0, 0, width, height);
 
-    for (const particle of particles) {
+    // Update and draw particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const particle = particles[i];
       particle.update(delta);
-      particle.draw();
+      
+      // Remove dead particles
+      const age = performance.now() - particle.birthTime;
+      if (age > particle.lifespan || particle.opacity <= 0) {
+        particles.splice(i, 1);
+      } else {
+        particle.draw();
+      }
+    }
+    
+    // Spawn new particles if needed to maintain aesthetic
+    if (particles.length < maxCount * 0.3) {
+      particles.push(new Particle());
     }
 
     requestAnimationFrame(tick);
