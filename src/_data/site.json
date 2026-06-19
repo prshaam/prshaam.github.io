@@ -21,13 +21,13 @@
   ],
   "interests": [
     {
-      "title": "System Design",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "title": "Intrusion Detection Systems",
+      "description": "Interested in Developing and implementing intrusion detection systems for Resource Constrained System.",
       "icon": "cube",
       "color": "#2dd4bf"
     },
     {
-      "title": "Developer Experience",
+      "title": "SATHV - Software Attacks Targetting Hardware Vulnerabilities",
       "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
       "icon": "code",
       "color": "#0d9488"
