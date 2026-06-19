@@ -23,7 +23,7 @@
   --radius-sm: 8px;
   --font-body: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", "Helvetica Neue", sans-serif;
   --font-display: "Syne", "Poppins", -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --font-mono: Consolas, "Monaco", "Courier New", monospace;
 }
 
 html {
