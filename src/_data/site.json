@@ -28,18 +28,18 @@
     },
     {
       "title": "SATHV - Software Attacks Targetting Hardware Vulnerabilities",
-      "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
+      "description": "Currently Reading About SATHV and its implications in the field of IoT Security.",
       "icon": "code",
       "color": "#0d9488"
     },
     {
-      "title": "Open Source",
-      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-      "icon": "users",
+      "title": "Firmware Analysis",
+      "description": "Currently Analysing an Obsolete Samsung VG-STC3000 TV Camera Firmware",
+      "icon": "brain",
       "color": "#f5f0e8"
     },
     {
-      "title": "AI & ML",
+      "title": "Control Systems",
       "description": "Duis aute irure dolor in reprehenderit in voluptate velit.",
       "icon": "brain",
       "color": "#5eead4"
