@@ -1,0 +1,51 @@
+---
+layout: layouts/base.njk
+---
+{% from "icons.njk" import icon %}
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="logo">{{ site.logo }}</a>
+    <div class="header__actions">
+      <nav class="social-links" aria-label="Social links">
+        {% for link in site.social %}
+        <a href="{{ link.url }}" class="social-link" aria-label="{{ link.name }}" target="_blank" rel="noopener noreferrer">
+          {{ icon(link.icon) }}
+        </a>
+        {% endfor %}
+      </nav>
+      <a href="{{ site.resumeUrl }}" class="btn-resume">
+        {{ icon("file") }}
+        Resume
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <div class="container page__inner">
+    <a href="/" class="page-back" data-metro-tile aria-label="Back to home">
+      {{ icon("arrow-left") }}
+      <span>Back</span>
+    </a>
+
+    <article class="page-content">
+      <header class="page-header">
+        <h1 class="page-title">{{ title }}</h1>
+        {% if published %}
+        <time class="page-date" datetime="{{ published }}">{{ published }}</time>
+        {% endif %}
+      </header>
+
+      <div class="page-body">
+        {{ content | safe }}
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© {{ site.year }} {{ site.name }} • Built with Eleventy &amp; GitHub Pages <span class="heart">💙</span></p>
+  </div>
+</footer>

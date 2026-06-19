@@ -1,0 +1,26 @@
+{% from "icons.njk" import icon %}
+
+{% macro projectList(projects, ongoing=false) %}
+<div class="project-list">
+  {% for project in projects %}
+  <article class="project-card{% if ongoing %} project-card--ongoing{% endif %}">
+    <a href="{{ project.url }}" class="project-card__link" aria-label="View {{ project.title }}" target="_blank" rel="noopener noreferrer">
+      {{ icon("external") }}
+    </a>
+    {% if ongoing and project.status %}
+    <span class="project-card__status">{{ project.status }}</span>
+    {% endif %}
+    <div class="project-card__header">
+      <img src="{{ project.logo }}" alt="" class="project-card__logo" width="32" height="32">
+      <h3 class="project-card__title">{{ project.title }}</h3>
+    </div>
+    <p class="project-card__desc">{{ project.description }}</p>
+    <div class="project-card__tags">
+      {% for tag in project.tags %}
+      <span class="project-card__tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% endmacro %}

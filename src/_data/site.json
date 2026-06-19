@@ -1,0 +1,141 @@
+{
+  "name": "SSG",
+  "title": "SSG — Portfolio",
+  "tagline": "Builder • Learner • Problem Solver",
+  "bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+  "year": 2026,
+  "logo": ">_ ssg.dev",
+  "profileImage": "/assets/img/profile.svg",
+  "resumeUrl": "#",
+  "social": [
+    { "name": "GitHub", "url": "https://github.com", "icon": "github" },
+    { "name": "LinkedIn", "url": "https://linkedin.com", "icon": "linkedin" },
+    { "name": "Email", "url": "mailto:hello@example.com", "icon": "mail" }
+  ],
+  "techStack": [
+    { "name": "JavaScript", "color": "#2dd4bf" },
+    { "name": "Python", "color": "#0d9488" },
+    { "name": "Go", "color": "#f5f0e8" },
+    { "name": "Linux", "color": "#737373" },
+    { "name": "Git", "color": "#5eead4" }
+  ],
+  "interests": [
+    {
+      "title": "System Design",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "icon": "cube",
+      "color": "#2dd4bf"
+    },
+    {
+      "title": "Developer Experience",
+      "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna.",
+      "icon": "code",
+      "color": "#0d9488"
+    },
+    {
+      "title": "Open Source",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+      "icon": "users",
+      "color": "#f5f0e8"
+    },
+    {
+      "title": "AI & ML",
+      "description": "Duis aute irure dolor in reprehenderit in voluptate velit.",
+      "icon": "brain",
+      "color": "#5eead4"
+    }
+  ],
+  "ongoingProjects": [
+    {
+      "title": "Portfolio SSG",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.",
+      "url": "https://github.com",
+      "logo": "/assets/img/project-portfolio.svg",
+      "status": "In Progress",
+      "tags": ["Eleventy", "CSS", "GitHub Pages"]
+    },
+    {
+      "title": "API Gateway",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+      "url": "https://github.com",
+      "logo": "/assets/img/project-apigateway.svg",
+      "status": "In Progress",
+      "tags": ["Go", "gRPC", "Kubernetes"]
+    }
+  ],
+  "projects": [
+    {
+      "title": "TaskPilot",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.",
+      "url": "https://github.com",
+      "logo": "/assets/img/project-taskpilot.svg",
+      "tags": ["Next.js", "TypeScript", "PostgreSQL"]
+    },
+    {
+      "title": "CloudSync",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+      "url": "https://github.com",
+      "logo": "/assets/img/project-cloudsync.svg",
+      "tags": ["Go", "Docker", "AWS"]
+    },
+    {
+      "title": "DevCLI",
+      "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse.",
+      "url": "https://github.com",
+      "logo": "/assets/img/project-devcli.svg",
+      "tags": ["Rust", "CLI", "Linux"]
+    }
+  ],
+  "writings": [
+    {
+      "slug": "understanding-indexes-in-databases",
+      "title": "Understanding Indexes in Databases",
+      "date": "May 12, 2024",
+      "excerpt": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A practical look at how indexes work under the hood.",
+      "body": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+      ]
+    },
+    {
+      "slug": "building-resilient-microservices",
+      "title": "Building Resilient Microservices",
+      "date": "Apr 3, 2024",
+      "excerpt": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.",
+      "body": [
+        "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
+        "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur."
+      ]
+    },
+    {
+      "slug": "a-guide-to-modern-css-layouts",
+      "title": "A Guide to Modern CSS Layouts",
+      "date": "Mar 18, 2024",
+      "excerpt": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "body": [
+        "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.",
+        "Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.",
+        "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus."
+      ]
+    },
+    {
+      "slug": "optimizing-go-for-production",
+      "title": "Optimizing Go for Production",
+      "date": "Feb 7, 2024",
+      "excerpt": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "body": [
+        "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.",
+        "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      ]
+    }
+  ],
+  "links": {
+    "moreAbout": "/about/",
+    "moreOngoing": "/projects/",
+    "moreProjects": "/projects/",
+    "moreWritings": "/writings/"
+  }
+}

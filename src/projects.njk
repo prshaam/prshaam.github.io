@@ -1,0 +1,21 @@
+---
+layout: layouts/page.njk
+title: Projects
+permalink: /projects/
+description: Ongoing and completed projects by SSG.
+---
+{% from "project-list.njk" import projectList %}
+
+<p class="page-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. A collection of things I've built, am building, and ship to production.</p>
+
+<section class="page-section" data-metro-tile>
+  <h2 class="page-section__title">Ongoing</h2>
+  {{ projectList(site.ongoingProjects, true) }}
+</section>
+
+<section class="page-section" data-metro-tile>
+  <h2 class="page-section__title">Completed</h2>
+  {{ projectList(site.projects) }}
+</section>
+
+<p><a href="https://github.com" target="_blank" rel="noopener noreferrer">View more on GitHub →</a></p>

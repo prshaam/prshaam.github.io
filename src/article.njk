@@ -1,0 +1,19 @@
+---
+pagination:
+  data: site.writings
+  size: 1
+  alias: article
+permalink: "/writings/{{ article.slug }}/"
+layout: layouts/page.njk
+title: "{{ article.title }}"
+published: "{{ article.date }}"
+description: "{{ article.excerpt }}"
+---
+
+<p class="page-lead">{{ article.excerpt }}</p>
+
+{% for paragraph in article.body %}
+<p>{{ paragraph }}</p>
+{% endfor %}
+
+<p><a href="/writings/" data-metro-tile>← All writings</a></p>

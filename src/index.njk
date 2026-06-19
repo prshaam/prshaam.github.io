@@ -1,0 +1,129 @@
+---
+layout: layouts/base.njk
+---
+{% from "icons.njk" import icon %}
+{% from "project-list.njk" import projectList %}
+
+<header class="header">
+  <div class="container header__inner">
+    <a href="/" class="logo">{{ site.logo }}</a>
+    <div class="header__actions">
+      <nav class="social-links" aria-label="Social links">
+        {% for link in site.social %}
+        <a href="{{ link.url }}" class="social-link" aria-label="{{ link.name }}" target="_blank" rel="noopener noreferrer">
+          {{ icon(link.icon) }}
+        </a>
+        {% endfor %}
+      </nav>
+      <a href="{{ site.resumeUrl }}" class="btn-resume">
+        {{ icon("file") }}
+        Resume
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="profile">
+        <div class="profile__ring">
+          <img src="{{ site.profileImage }}" alt="{{ site.name }} profile" class="profile__img" width="140" height="140">
+        </div>
+      </div>
+
+      <div class="hero__content">
+        <h1>Hi, I'm</h1>
+        <p class="hero__name">{{ site.name }}</p>
+        <p class="hero__tagline">{{ site.tagline }}</p>
+        <p class="hero__bio">{{ site.bio }}</p>
+        <div class="tech-tags">
+          {% for tech in site.techStack %}
+          <span class="tech-tag" style="--tag-color: {{ tech.color }}">{{ tech.name }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="hero__illustration" aria-hidden="true">
+        <img src="/assets/img/hero-illustration.svg" alt="" width="220" height="200">
+      </div>
+    </div>
+  </section>
+
+  <section class="main-grid container">
+    <div class="section" data-metro-tile>
+      <h2 class="section__header">
+        {{ icon("target") }}
+        Areas of Interest
+      </h2>
+      <ul class="interest-list">
+        {% for item in site.interests %}
+        <li class="interest-item">
+          <div class="interest-item__icon" style="--icon-color: {{ item.color }}">
+            {{ icon(item.icon) }}
+          </div>
+          <div>
+            <p class="interest-item__title">{{ item.title }}</p>
+            <p class="interest-item__desc">{{ item.description }}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="section__footer">
+        <a href="{{ site.links.moreAbout }}" class="section__link">More about me →</a>
+      </div>
+    </div>
+
+    <div class="section" data-metro-tile>
+      <h2 class="section__header">
+        {{ icon("loader") }}
+        Ongoing Projects
+      </h2>
+      {{ projectList(site.ongoingProjects, true) }}
+      <div class="section__footer">
+        <a href="{{ site.links.moreOngoing }}" class="section__link">Track progress →</a>
+      </div>
+    </div>
+
+    <div class="section" data-metro-tile>
+      <h2 class="section__header">
+        {{ icon("code") }}
+        Completed Projects
+      </h2>
+      {{ projectList(site.projects) }}
+      <div class="section__footer">
+        <a href="{{ site.links.moreProjects }}" class="section__link">View all projects →</a>
+      </div>
+    </div>
+
+    <div class="section" data-metro-tile>
+      <h2 class="section__header">
+        {{ icon("document") }}
+        Technical Writings
+      </h2>
+      <ul class="writing-list">
+        {% for article in site.writings %}
+        <li class="writing-item" data-metro-tile>
+          <a href="/writings/{{ article.slug }}/" class="writing-item__link">
+            <span class="writing-item__icon">{{ icon("document") }}</span>
+            <span class="writing-item__content">
+              <span class="writing-item__title">{{ article.title }}</span>
+              <span class="writing-item__date">{{ article.date }}</span>
+            </span>
+            <span class="writing-item__external">{{ icon("external") }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="section__footer">
+        <a href="{{ site.links.moreWritings }}" class="section__link">Explore all writings →</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© {{ site.year }} {{ site.name }} • Built with Eleventy &amp; GitHub Pages <span class="heart">💙</span></p>
+  </div>
+</footer>

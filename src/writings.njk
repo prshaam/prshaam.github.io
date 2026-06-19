@@ -1,0 +1,24 @@
+---
+layout: layouts/page.njk
+title: Technical Writings
+permalink: /writings/
+description: Articles and technical notes by SSG.
+---
+{% from "icons.njk" import icon %}
+
+<p class="page-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Explore articles on software engineering, system design, and developer tools.</p>
+
+<ul class="article-index">
+  {% for article in site.writings %}
+  <li class="article-index__item" data-metro-tile>
+    <a href="/writings/{{ article.slug }}/" class="article-index__link">
+      <span class="article-index__icon">{{ icon("document") }}</span>
+      <span class="article-index__content">
+        <span class="article-index__title">{{ article.title }}</span>
+        <span class="article-index__date">{{ article.date }}</span>
+      </span>
+      <span class="article-index__arrow">{{ icon("external") }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
